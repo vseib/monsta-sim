@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 project(monsta_sim VERSION 0.01 LANGUAGES C CXX)
 
 ###############
@@ -21,7 +21,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # find Qt 
-find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 
@@ -29,10 +29,6 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 ## Build ##
 ###########
 
-qt5_wrap_cpp(MONSTA_MOCS_HDRS
-    GUI/MonstaWidget.h
-    GUI/MainWindow.h
-)
 add_executable(monsta_sim 
     main.cpp
     Monsta/MonstaMain.cpp
@@ -53,11 +49,8 @@ add_executable(monsta_sim
     GUI/versionpage.cpp
     GUI/keyboardwindow.cpp
     GUI/keyboardwindow.h
-    ${MONSTA_MOCS_HDRS}
 )
-target_include_directories(monsta_sim PUBLIC
-    ${QT_INCLUDE_DIR}
-)
+
 target_link_libraries(monsta_sim PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
 )
